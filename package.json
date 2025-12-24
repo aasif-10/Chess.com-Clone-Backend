@@ -1,0 +1,29 @@
+{
+  "name": "chess.com-clone",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000C\u0000h\u0000e\u0000s\u0000s\u0000.\u0000c\u0000o\u0000m\u0000-\u0000C\u0000l\u0000o\u0000n\u0000e\u0000-\u0000B\u0000a\u0000c\u0000k\u0000e\u0000n\u0000d\u0000\r\u0000 \u0000",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aasif-10/Chess.com-Clone-Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/aasif-10/Chess.com-Clone-Backend/issues"
+  },
+  "homepage": "https://github.com/aasif-10/Chess.com-Clone-Backend#readme",
+  "dependencies": {
+    "chess.js": "^1.4.0",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "http": "^0.0.1-security",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3"
+  }
+}
