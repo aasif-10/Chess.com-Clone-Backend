@@ -32,7 +32,11 @@ const renderBoard = () => {
           "piece",
           square.color === "w" ? "white" : "black"
         );
-        pieceElement.innerHTML = getPeiceUnicode(square);
+        pieceElement.innerHTML = `<img src="/images/${
+          square.color
+        }${square.type.toUpperCase()}.png" alt="${square.color}${
+          square.type
+        }">`;
         pieceElement.draggable = playerRole === square.color;
 
         pieceElement.addEventListener("dragstart", (e) => {
@@ -84,31 +88,8 @@ const handleMove = (source, target) => {
     to: String.fromCharCode(97 + target.col) + (8 - target.row),
     promotion: "q", // always promote to a queen for simplicity
   };
-  const result = chess.move(move);
-  if (result) {
-    renderBoard();
-    socket.emit("move", move);
-  }
-};
 
-const getPeiceUnicode = (piece) => {
-  const unicodePieces = {
-    p: "♙",
-    r: "♜",
-    n: "♞",
-    b: "♝",
-    q: "♛",
-    k: "♚",
-
-    P: "♙",
-    R: "♖",
-    N: "♘",
-    B: "♗",
-    Q: "♕",
-    K: "♔",
-  };
-
-  return unicodePieces[piece.type] || "";
+  socket.emit("move", move);
 };
 
 socket.on("playerRole", (role) => {
@@ -117,17 +98,8 @@ socket.on("playerRole", (role) => {
   renderBoard();
 });
 
-socket.on("spectatorRole", (role) => {
-  playerRole = null;
-  renderBoard();
-});
-
 socket.on("boardState", (fen) => {
   chess.load(fen);
-  renderBoard();
-});
-socket.on("move", (move) => {
-  chess.move(move);
   renderBoard();
 });
 

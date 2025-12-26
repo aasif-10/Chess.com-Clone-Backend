@@ -14,15 +14,29 @@
             width: 500px;
             height: 500px;
             transform: rotate(0deg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .piece {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
         .piece.white {
             color: white;
-            filter: drop-shadow(0 0 2px rgba(0, 0, 0, 1));
         }
 
         .piece.black {
             color: black;
+        }
+
+        .piece img {
+            width: full;
+            height: full;
+            object-fit: cover;
         }
 
         .flipped {
@@ -40,11 +54,11 @@
         }
 
         .square.light {
-            background-color: #f0d9b5;
+            background-color: #eaedd1;
         }
 
         .square.dark {
-            background-color: #b58863;
+            background-color: #779758;
         }
 
         .piece {
