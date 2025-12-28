@@ -1,13 +1,10 @@
 const socket = io();
 
-// socket.emit("choco");
-// socket.on("chocoRes", function () {
-//   console.log("choco response received");
-// });
-
 const chess = new Chess();
 const boardElement = document.querySelector(".chessboard");
+const waitingElement = document.getElementById("waitingScreen");
 
+let roomId = null;
 let draggedPiece = null;
 let playerRole = null;
 let sourceSquare = null;
@@ -89,13 +86,14 @@ const handleMove = (source, target) => {
     promotion: "q", // always promote to a queen for simplicity
   };
 
-  socket.emit("move", move);
+  socket.emit("move", { move, roomId });
 };
 
+socket.on("roomJoined", (id) => {
+  roomId = id;
+});
 socket.on("playerRole", (role) => {
   playerRole = role;
-  console.log(role);
-  renderBoard();
 });
 
 socket.on("boardState", (fen) => {
@@ -103,4 +101,41 @@ socket.on("boardState", (fen) => {
   renderBoard();
 });
 
-renderBoard();
+socket.on("invalidMove", () => {
+  alert("Invalid Move!");
+});
+
+socket.on("gameOver", () => {
+  alert("Opponent Disconnected. Game Over.");
+});
+
+socket.on("waitingForOpponent", () => {
+  alert("Waiting for opponent to join...");
+});
+
+socket.on("checkmate", (winner) => {
+  if (winner.winner === playerRole) {
+    alert("Checkmate! You win!");
+  } else {
+    alert("Checkmate! You lose!");
+  }
+});
+
+socket.on("waiting", () => {
+  waitingElement.classList.remove("hidden");
+  boardElement.classList.add("hidden");
+  const userInfoElement = document.getElementById("user-info");
+  userInfoElement.classList.add("hidden");
+});
+
+socket.on("startGame", () => {
+  waitingElement.classList.add("hidden");
+  boardElement.classList.remove("hidden");
+  const userInfoElement = document.getElementById("user-info");
+  userInfoElement.classList.remove("hidden");
+});
+
+socket.on("playersInfo", (players) => {
+  document.getElementById("whitePlayer").textContent = players.white.name;
+  document.getElementById("blackPlayer").textContent = players.black.name;
+});

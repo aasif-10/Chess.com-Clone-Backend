@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+    <div class="relative main w-screen h-screen flex items-center justify-center bg-[#302e2b] overflow-hidden">
+        <img class="w-full h-full object-fit-cover" src="https://www.chess.com/bundles/web/images/web/chessboard-background.346891ba.png
+" alt="">
+
+        <div class="absolute  top-[40px] overflow-hidden  w-[230px] ">
+            <img class="w-full h-full object-fit-cover" src="/images/logo.png" alt="Chess Logo">
+        </div>
+        <div
+            class="absolute top-[120px] signup-container w-[400px] h-[630px] bg-[#262421] rounded-[15px]  px-[35px] pt-[40px]">
+
+            <form class="text-[#9b9a99]" action="/user/signin
+            " method="post">
+                <input
+                    class="px-[20px] text-[16px] border-[1px] border-[#696866] outline-none w-full h-[50px] rounded-[5px] bg-[#373532] "
+                    type="text" name="username" placeholder="Username">
+                <input
+                    class="px-[20px] text-[16px] mt-[15px] border-[1px] border-[#696866] outline-none w-full h-[50px] rounded-[5px] block bg-[#373532] text-[#9b9a99]"
+                    type="password" name="password" placeholder="Password">
+                <button
+                    class="mt-[30px] w-full block bg-[#88bc53] text-white font-bold h-[65px] rounded-[10px] text-[23px]"
+                    type="submit">Log in</button>
+            </form>
+
+            <div class="or-container flex flex-row gap-[10px] mt-[30px] text-[#939290] items-center justify-center">
+                <div class="border-[1px] border-[#3c3a38] w-[180px] h-[1px]"></div>
+                <h4>OR</h4>
+                <div class="border-[1px] border-[#3c3a38] w-[180px] h-[1px]"></div>
+            </div>
+
+            <div class="strategies">
+                <button
+                    class="pl-[20px] mt-[30px] w-full block bg-[#403f3c] text-[#e0dfdf] font-bold h-[65px] rounded-[10px] text-[21px] flex justify-start items-center"
+                    type="submit">
+
+                    <div class="mr-[40px] logo overflow-hidden w-[25px] h-[25px] ">
+                        <img class="w-full h-full object-fit-cover"
+                            src="https://www.chess.com/bundles/web/images/socials/apple.d77d954d.svg" alt="">
+                    </div>
+                    <a class="text-[18px]" href="/">Log in with Apple</a>
+                </button>
+                <button
+                    class="pl-[20px] mt-[10px] w-full block bg-[#403f3c] text-[#e0dfdf] font-bold h-[65px] rounded-[10px] text-[21px] flex justify-start items-center"
+                    type="submit">
+                    <div class="mr-[40px] logo overflow-hidden w-[25px] h-[25px] ">
+                        <img class="w-full h-full object-fit-cover"
+                            src="https://www.chess.com/bundles/web/images/socials/google.9f87d284.svg" alt="">
+                    </div><a class="text-[18px]" href="/auth/google">Log in with Google</a>
+                </button>
+                <button
+                    class="pl-[20px] mt-[10px] w-full block bg-[#403f3c] text-[#e0dfdf] font-bold h-[65px] rounded-[10px] text-[21px] flex justify-start items-center"
+                    type="submit">
+                    <div class="mr-[40px] logo overflow-hidden w-[25px] h-[25px] ">
+                        <img class="w-full h-full object-fit-cover"
+                            src="https://www.chess.com/bundles/web/images/socials/facebook.a8fa98c7.svg" alt="">
+                    </div><a class="text-[18px]" href="">Log in with Facebook</a>
+                </button>
+
+            </div>
+
+            <div class="mt-[10px] w-full h-[50px] text-[#c0bfbe]
+            flex items-center justify-center text-[17px] font-semibold">
+                <h4><a href="/user/signup">New? Sign up - and start playing chess!</a></h4>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

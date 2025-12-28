@@ -74,13 +74,46 @@
             opacity: 0.5;
         }
 
-        /* Rotate pieces for black player */
-        /* (handled above with .flipped .piece) */
+        .dots::after {
+            content: "";
+            animation: dots 2s steps(3, end) infinite;
+        }
+
+        @keyframes dots {
+            0% {
+                content: "";
+            }
+
+            33% {
+                content: ".";
+            }
+
+            66% {
+                content: "..";
+            }
+
+            100% {
+                content: "...";
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="w-full h-screen flex items-center justify-center bg-zinc-900">
+    <div class="main w-full h-screen flex items-center justify-center bg-[#1f1f1f] hidden" id="waitingScreen">
+        <p class="text-2xl font-semibold text-white">Waiting for opponent to join<span id="loading" class="dots"></span>
+        </p>
+    </div>
+    <div class="relative w-full h-screen flex items-center justify-center bg-zinc-900">
+        <div id="user-info" class="absolute top-[60px] flex items-center gap-2">
+            <p id="whitePlayer" class="text-white text-[20px] font-bold">
+                Waiting...
+            </p>
+            <p class="text-white text-[20px] font-bold">vs</p>
+            <p id="blackPlayer" class="text-white text-[20px] font-bold">
+                Waiting...
+            </p>
+        </div>
         <div id="chessboard" class="chessboard [500px] h-[500px]"></div>
 
         <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"
