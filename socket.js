@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const userModel = require("./models/user-model");
 const { Chess } = require("chess.js"); //Chess class from chess.js
 const sharedSession = require("express-socket.io-session");
@@ -19,7 +20,12 @@ module.exports = (io, session) => {
       return;
     }
 
-    const user = await userModel.findById(userId);
+    let user;
+    if (mongoose.isValidObjectId(userId)) {
+      user = await userModel.findById(userId);
+    } else {
+      user = await userModel.findOne({ name: userId });
+    }
 
     if (!waitingRoom) {
       let roomId = `room-${socket.id}`;

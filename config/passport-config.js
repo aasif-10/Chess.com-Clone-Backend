@@ -1,4 +1,5 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const LocalStrategy = require("passport-local").Strategy;
 const userModel = require("../models/user-model");
 
 module.exports = (passport) => {
@@ -24,9 +25,11 @@ module.exports = (passport) => {
       }
     )
   );
-  passport.serializeUser((user, done) => done(null, user._id));
-  passport.deserializeUser(async (id, done) => {
-    const user = await userModel.findById(id);
-    done(null, user);
-  });
+
+  passport.use(
+    new LocalStrategy({ usernameField: "name" }, userModel.authenticate())
+  );
+
+  passport.serializeUser(userModel.serializeUser());
+  passport.deserializeUser(userModel.deserializeUser());
 };
