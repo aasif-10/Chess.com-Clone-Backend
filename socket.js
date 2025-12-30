@@ -125,14 +125,17 @@ module.exports = (io, session) => {
         socket.emit("playerRole", "b");
         socket.emit("roomJoined", roomId);
 
-        io.to(roomId).emit("boardState", rooms[roomId].chess.fen());
         waitingRoom = null;
-        io.to(roomId).emit("startGame");
 
-        io.to(roomId).emit("playersInfo", {
-          white: room.players.white,
-          black: room.players.black,
-        });
+        // Small delay to ensure both sockets are fully joined and ready
+        setTimeout(() => {
+          io.to(roomId).emit("boardState", room.chess.fen());
+          io.to(roomId).emit("startGame");
+          io.to(roomId).emit("playersInfo", {
+            white: room.players.white,
+            black: room.players.black,
+          });
+        }, 500);
       }
     }
 
