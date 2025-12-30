@@ -31,7 +31,7 @@ const session = expressSession({
   secret: process.env.EXPRESS_SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({
+  store: (MongoStore.default || MongoStore).create({
     mongoUrl: process.env.MONGODB_URI,
     collectionName: "sessions",
   }),
