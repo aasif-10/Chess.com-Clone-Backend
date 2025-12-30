@@ -100,12 +100,12 @@
 </head>
 
 <body>
-    <div class="main w-full h-screen flex items-center justify-center bg-[#1f1f1f] hidden" id="waitingScreen">
+    <div class="main w-full h-screen flex items-center justify-center bg-[#1f1f1f]" id="waitingScreen">
         <p class="text-2xl font-semibold text-white">Waiting for opponent to join<span id="loading" class="dots"></span>
         </p>
     </div>
     <div class="relative w-full h-screen flex items-center justify-center bg-zinc-900">
-        <div id="user-info" class="absolute top-[60px] flex items-center gap-2">
+        <div id="user-info" class="absolute top-[60px] flex items-center gap-2 hidden">
             <p id="whitePlayer" class="text-white text-[20px] font-bold">
                 Waiting...
             </p>
@@ -114,7 +114,7 @@
                 Waiting...
             </p>
         </div>
-        <div id="chessboard" class="chessboard [500px] h-[500px]"></div>
+        <div id="chessboard" class="chessboard [500px] h-[500px] hidden"></div>
 
         <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"
             integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+"
