@@ -149,10 +149,8 @@ module.exports = (io, session) => {
 
         // Start game definitely
         console.log(`Starting game in room: ${roomId}`);
-        setTimeout(() => {
-          io.to(roomId).emit("boardState", room.chess.fen());
-          io.to(roomId).emit("startGame");
-        }, 600);
+        io.to(roomId).emit("boardState", room.chess.fen());
+        io.to(roomId).emit("startGame");
       }
     }
 
