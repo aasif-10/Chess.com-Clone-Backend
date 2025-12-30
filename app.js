@@ -56,6 +56,10 @@ socketHandle(io, session);
 const chessRoute = require("./routes/chessRoute");
 const authRoutes = require("./routes/authRoutes");
 
+app.get("/", (req, res) => {
+  res.redirect("/users/signin");
+});
+
 app.use("/users", chessRoute);
 app.use("/auth", authRoutes);
 
