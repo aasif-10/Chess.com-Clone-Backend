@@ -29,6 +29,8 @@ module.exports = (io, session) => {
       username = userId;
     }
 
+    console.log(`Socket connected: ${socket.id}, UserID: ${userId}`);
+
     let existingRoomId = null;
     let existingRole = null;
 
@@ -127,24 +129,30 @@ module.exports = (io, session) => {
         socket.emit("playerRole", "b");
         socket.emit("roomJoined", roomId);
 
-        // Fetch user info and trigger game start
+        // Fetch user info async
         (mongoose.isValidObjectId(userId)
           ? userModel.findById(userId)
           : userModel.findOne({ name: userId })
-        ).then((user) => {
-          if (user && rooms[roomId]) {
-            room.players.black.userId = user._id;
-            room.players.black.name = user.name;
-            room.players.black.photo = user.photo;
+        )
+          .then((user) => {
+            if (user && rooms[roomId]) {
+              room.players.black.userId = user._id;
+              room.players.black.name = user.name;
+              room.players.black.photo = user.photo;
+            }
+            // Emit always, whether user found or not
+            io.to(roomId).emit("playersInfo", room.players);
+          })
+          .catch((err) =>
+            console.error("Error fetching black player info:", err)
+          );
 
-            // Start game with a small sync delay
-            setTimeout(() => {
-              io.to(roomId).emit("boardState", room.chess.fen());
-              io.to(roomId).emit("startGame");
-              io.to(roomId).emit("playersInfo", room.players);
-            }, 500);
-          }
-        });
+        // Start game definitely
+        console.log(`Starting game in room: ${roomId}`);
+        setTimeout(() => {
+          io.to(roomId).emit("boardState", room.chess.fen());
+          io.to(roomId).emit("startGame");
+        }, 600);
       }
     }
 
