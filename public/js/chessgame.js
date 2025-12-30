@@ -109,6 +109,10 @@ socket.on("gameOver", () => {
   alert("Opponent Disconnected. Game Over.");
 });
 
+socket.on("opponentReconnected", () => {
+  alert("Opponent reconnected! The game continues.");
+});
+
 socket.on("waitingForOpponent", () => {
   alert("Waiting for opponent to join...");
 });
