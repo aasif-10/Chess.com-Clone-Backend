@@ -90,13 +90,17 @@ const handleMove = (source, target) => {
 };
 
 socket.on("roomJoined", (id) => {
+  console.log("Joined room:", id);
   roomId = id;
 });
+
 socket.on("playerRole", (role) => {
+  console.log("Your role is:", role);
   playerRole = role;
 });
 
 socket.on("boardState", (fen) => {
+  console.log("Board state updated");
   chess.load(fen);
   renderBoard();
 });
@@ -126,20 +130,38 @@ socket.on("checkmate", (winner) => {
 });
 
 socket.on("waiting", () => {
-  waitingElement.classList.remove("hidden");
-  boardElement.classList.add("hidden");
+  console.log("Client state: WAITING");
+  if (waitingElement) waitingElement.classList.remove("hidden");
+  if (boardElement) boardElement.classList.add("hidden");
   const userInfoElement = document.getElementById("user-info");
-  userInfoElement.classList.add("hidden");
+  if (userInfoElement) userInfoElement.classList.add("hidden");
 });
 
 socket.on("startGame", () => {
-  waitingElement.classList.add("hidden");
-  boardElement.classList.remove("hidden");
+  console.log("Client state: START_GAME");
+  if (waitingElement) waitingElement.classList.add("hidden");
+  if (boardElement) boardElement.classList.remove("hidden");
   const userInfoElement = document.getElementById("user-info");
-  userInfoElement.classList.remove("hidden");
+  if (userInfoElement) userInfoElement.classList.remove("hidden");
+  renderBoard();
 });
 
 socket.on("playersInfo", (players) => {
-  document.getElementById("whitePlayer").textContent = players.white.name;
-  document.getElementById("blackPlayer").textContent = players.black.name;
+  console.log("Updating players info:", players);
+  const whiteP = document.getElementById("whitePlayer");
+  const blackP = document.getElementById("blackPlayer");
+
+  // SAFE CHECKS: Prevent JS crash if players data is partial
+  if (whiteP && players.white) {
+    whiteP.textContent = players.white.name || "White";
+  }
+  if (blackP && players.black) {
+    blackP.textContent = players.black.name || "Black";
+  }
 });
+
+socket.on("connect", () => console.log("Socket connected to server"));
+socket.on("connect_error", (err) =>
+  console.error("Socket connection error:", err)
+);
+socket.on("error", (err) => console.error("Socket error:", err));
