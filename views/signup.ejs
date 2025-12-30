@@ -11,16 +11,15 @@
 
 <body>
     <div class="relative main w-screen h-screen flex items-center justify-center bg-[#302e2b] overflow-hidden">
-        <img class="w-full h-full object-fit-cover" src="/images/chessboard-background.346891ba.png" alt="">
+        <img class="w-full h-full object-cover" src="/images/chessboard-background.346891ba.png" alt="">
 
-        <div class="absolute  top-[40px] overflow-hidden  w-[230px] ">
-            <img class="w-full h-full object-fit-cover" src="/images/logo.png" alt="Chess Logo">
+        <div class="absolute top-[40px] overflow-hidden w-[230px]">
+            <img class="w-full h-full object-cover" src="/images/logo.png" alt="Chess Logo">
         </div>
         <div
-            class="absolute top-[120px] signup-container w-[400px] h-[630px] bg-[#262421] rounded-[15px]  px-[35px] pt-[40px]">
+            class="absolute top-[120px] signup-container w-[400px] h-[630px] bg-[#262421] rounded-[15px] px-[35px] pt-[40px]">
 
-            <form class="text-[#9b9a99]" action="/users/signup
-            " method="post">
+            <form class="text-[#9b9a99]" action="/users/signup" method="post">
                 <input
                     class="px-[20px] text-[16px] border-[1px] border-[#696866] outline-none w-full h-[50px] rounded-[5px] bg-[#373532] "
                     type="text" name="name" placeholder="Username" required>
@@ -29,8 +28,7 @@
                     type="password" name="password" placeholder="Password" required>
                 <button
                     class="mt-[30px] w-full block bg-[#88bc53] text-white font-bold h-[65px] rounded-[10px] text-[23px]"
-                    type="submit">Sign
-                    up</button>
+                    type="submit">Sign up</button>
             </form>
 
             <div class="or-container flex flex-row gap-[10px] mt-[30px] text-[#939290] items-center justify-center">
@@ -43,32 +41,34 @@
                 <button
                     class="pl-[20px] mt-[30px] w-full block bg-[#403f3c] text-[#e0dfdf] font-bold h-[65px] rounded-[10px] text-[21px] flex justify-start items-center"
                     type="submit">
-
-                    <img class="w-full h-full object-fit-cover" src="/images/apple.d77d954d.svg" alt="">
+                    <div class="mr-[40px] logo overflow-hidden w-[25px] h-[25px]">
+                        <img class="w-full h-full object-cover" src="/images/apple.d77d954d.svg" alt="">
+                    </div>
+                    <a class="text-[18px]" href="/">Sign up with Apple</a>
+                </button>
+                <button
+                    class="pl-[20px] mt-[10px] w-full block bg-[#403f3c] text-[#e0dfdf] font-bold h-[65px] rounded-[10px] text-[21px] flex justify-start items-center"
+                    type="submit">
+                    <div class="mr-[40px] logo overflow-hidden w-[25px] h-[25px]">
+                        <img class="w-full h-full object-cover" src="/images/google.9f87d284.svg" alt="">
+                    </div>
+                    <a class="text-[18px]" href="/auth/google">Sign up with Google</a>
+                </button>
+                <button
+                    class="pl-[20px] mt-[10px] w-full block bg-[#403f3c] text-[#e0dfdf] font-bold h-[65px] rounded-[10px] text-[21px] flex justify-start items-center"
+                    type="submit">
+                    <div class="mr-[40px] logo overflow-hidden w-[25px] h-[25px]">
+                        <img class="w-full h-full object-cover" src="/images/facebook.a8fa98c7.svg" alt="">
+                    </div>
+                    <a class="text-[18px]" href="">Sign up with Facebook</a>
+                </button>
             </div>
-            <a class="text-[18px]" href="/">Sign up with Apple</a>
-            </button>
-            <button
-                class="pl-[20px] mt-[10px] w-full block bg-[#403f3c] text-[#e0dfdf] font-bold h-[65px] rounded-[10px] text-[21px] flex justify-start items-center"
-                type="submit">
-                <img class="w-full h-full object-fit-cover" src="/images/google.9f87d284.svg" alt="">
-        </div><a class="text-[18px]" href="/auth/google">Sign up with Google</a>
-        </button>
-        <button
-            class="pl-[20px] mt-[10px] w-full block bg-[#403f3c] text-[#e0dfdf] font-bold h-[65px] rounded-[10px] text-[21px] flex justify-start items-center"
-            type="submit">
-            <img class="w-full h-full object-fit-cover"
-                src="https://www.chess.com/bundles/web/images/socials/facebook.a8fa98c7.svg" alt="">
-    </div><a class="text-[18px]" href="">Sign up with Facebook</a>
-    </button>
 
-    </div>
-
-    <div class="mt-[10px] w-full h-[50px] text-[#c0bfbe]
-            flex items-center justify-center text-[17px] font-semibold">
-        <h4><a href="/users/signin">Already have account? Log in!</a></h4>
-    </div>
-    </div>
+            <div
+                class="mt-[10px] w-full h-[50px] text-[#c0bfbe] flex items-center justify-center text-[17px] font-semibold">
+                <h4><a href="/users/signin">Already have account? Log in!</a></h4>
+            </div>
+        </div>
     </div>
 </body>
 
