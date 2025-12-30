@@ -16,7 +16,23 @@ const helmet = require("helmet");
 const app = express();
 
 app.set("trust proxy", 1);
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        "default-src": ["'self'"],
+        "script-src": [
+          "'self'",
+          "https://cdn.socket.io",
+          "https://cdnjs.cloudflare.com",
+        ],
+        "style-src": ["'self'", "'unsafe-inline'"],
+        "img-src": ["'self'", "data:", "https://*"], // Allow external images (avatars)
+        "connect-src": ["'self'", "https://cdn.socket.io", "wss://*", "ws://*"],
+      },
+    },
+  })
+);
 
 const server = http.createServer(app); //create HTTP server
 const io = socket(server); // bind socket.io to that server

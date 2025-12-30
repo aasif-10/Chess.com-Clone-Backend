@@ -97,7 +97,6 @@
             }
         }
 
-        /* CRITICAL: Fallback if Tailwind's hidden class doesn't build correctly on Render */
         .hidden {
             display: none !important;
         }
@@ -110,27 +109,24 @@
         </p>
     </div>
     <div class="relative w-full h-screen flex items-center justify-center bg-zinc-900">
-        <div id="user-info" class="absolute top-[60px] flex items-center gap-4 hidden">
-            <div class="flex flex-col items-center">
-                <p id="whitePlayer" class="text-white text-[18px] font-bold">Waiting...</p>
-                <span class="text-zinc-500 text-xs font-bold uppercase">White</span>
-            </div>
+        <div id="user-info" class="absolute top-[60px] flex items-center gap-2 hidden">
+            <p id="whitePlayer" class="text-white text-[20px] font-bold">
+                Waiting...
+            </p>
             <p class="text-white text-[20px] font-bold">vs</p>
-            <div class="flex flex-col items-center">
-                <p id="blackPlayer" class="text-white text-[18px] font-bold">Waiting...</p>
-                <span class="text-zinc-500 text-xs font-bold uppercase">Black</span>
-            </div>
+            <p id="blackPlayer" class="text-white text-[20px] font-bold">
+                Waiting...
+            </p>
         </div>
         <div id="chessboard" class="chessboard w-[500px] h-[500px] hidden"></div>
-    </div>
 
-    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"
-        integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"
-        integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="/js/chessgame.js"></script>
+        <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"
+            integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"
+            integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="/js/chessgame.js"></script>
 
 </body>
 
