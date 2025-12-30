@@ -5,6 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
+    "build:css": "npx @tailwindcss/cli -i ./public/css/input.css -o ./public/css/output.css --minify",
+    "watch:css": "npx @tailwindcss/cli -i ./public/css/input.css -o ./public/css/output.css --watch",
+    "postinstall": "npm run build:css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +23,7 @@
   },
   "homepage": "https://github.com/aasif-10/Chess.com-Clone-Backend#readme",
   "dependencies": {
+    "@tailwindcss/cli": "^4.1.18",
     "chess.js": "^1.4.0",
     "config": "^4.1.1",
     "connect-mongo": "^6.0.0",
