@@ -84,26 +84,16 @@ module.exports = (io, session) => {
       // Notify the other player that this player has reconnected
       socket.to(existingRoomId).emit("opponentReconnected");
     } else {
-      let user;
-      if (mongoose.isValidObjectId(userId)) {
-        user = await userModel.findById(userId);
-      } else {
-        user = await userModel.findOne({ name: userId });
-      }
-
+      // NEW JOIN - Atomic synchronous check
       if (!waitingRoom) {
+        // Player 1 - Creator
         let roomId = `room-${socket.id}`;
         waitingRoom = roomId;
 
         rooms[roomId] = {
           chess: new Chess(),
           players: {
-            white: {
-              socketId: socket.id,
-              userId: user._id,
-              name: user.name,
-              photo: user.photo,
-            },
+            white: { socketId: socket.id, name: "Loading..." },
             black: null,
           },
         };
@@ -112,30 +102,49 @@ module.exports = (io, session) => {
         socket.emit("playerRole", "w");
         socket.emit("roomJoined", roomId);
         socket.emit("waiting");
+
+        // Fetch user info async and update room
+        (mongoose.isValidObjectId(userId)
+          ? userModel.findById(userId)
+          : userModel.findOne({ name: userId })
+        ).then((user) => {
+          if (user && rooms[roomId]) {
+            rooms[roomId].players.white.userId = user._id;
+            rooms[roomId].players.white.name = user.name;
+            rooms[roomId].players.white.photo = user.photo;
+            io.to(roomId).emit("playersInfo", rooms[roomId].players);
+          }
+        });
       } else {
+        // Player 2 - Joiner
         let roomId = waitingRoom;
+        waitingRoom = null; // Atomic consume
+
         let room = rooms[roomId];
-        room.players.black = {
-          socketId: socket.id,
-          userId: user._id,
-          name: user.name,
-          photo: user.photo,
-        };
+        room.players.black = { socketId: socket.id, name: "Loading..." };
+
         socket.join(roomId);
         socket.emit("playerRole", "b");
         socket.emit("roomJoined", roomId);
 
-        waitingRoom = null;
+        // Fetch user info and trigger game start
+        (mongoose.isValidObjectId(userId)
+          ? userModel.findById(userId)
+          : userModel.findOne({ name: userId })
+        ).then((user) => {
+          if (user && rooms[roomId]) {
+            room.players.black.userId = user._id;
+            room.players.black.name = user.name;
+            room.players.black.photo = user.photo;
 
-        // Small delay to ensure both sockets are fully joined and ready
-        setTimeout(() => {
-          io.to(roomId).emit("boardState", room.chess.fen());
-          io.to(roomId).emit("startGame");
-          io.to(roomId).emit("playersInfo", {
-            white: room.players.white,
-            black: room.players.black,
-          });
-        }, 500);
+            // Start game with a small sync delay
+            setTimeout(() => {
+              io.to(roomId).emit("boardState", room.chess.fen());
+              io.to(roomId).emit("startGame");
+              io.to(roomId).emit("playersInfo", room.players);
+            }, 500);
+          }
+        });
       }
     }
 
