@@ -15,6 +15,7 @@ const mongooseConnection = require("./config/mongoose-connection");
 const helmet = require("helmet");
 const app = express();
 
+app.set("trust proxy", 1);
 app.use(helmet());
 
 const server = http.createServer(app); //create HTTP server
