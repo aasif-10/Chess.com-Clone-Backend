@@ -29,8 +29,6 @@ module.exports = (io, session) => {
       username = userId;
     }
 
-    console.log(`Socket connected: ${socket.id}, UserID: ${userId}`);
-
     let existingRoomId = null;
     let existingRole = null;
 
@@ -148,7 +146,7 @@ module.exports = (io, session) => {
           );
 
         // Start game definitely
-        console.log(`Starting game in room: ${roomId}`);
+
         io.to(roomId).emit("boardState", room.chess.fen());
         io.to(roomId).emit("startGame");
       }
@@ -185,6 +183,9 @@ module.exports = (io, session) => {
         console.log(err);
       }
     });
+
+    // Emit userId to the client so they know who they are
+    socket.emit("userId", userId);
 
     // player disconnection
     socket.on("disconnect", () => {

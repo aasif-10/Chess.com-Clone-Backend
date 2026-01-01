@@ -90,17 +90,14 @@ const handleMove = (source, target) => {
 };
 
 socket.on("roomJoined", (id) => {
-  console.log("Joined room:", id);
   roomId = id;
 });
 
 socket.on("playerRole", (role) => {
-  console.log("Your role is:", role);
   playerRole = role;
 });
 
 socket.on("boardState", (fen) => {
-  console.log("Board state updated");
   chess.load(fen);
   renderBoard();
 });
@@ -130,7 +127,6 @@ socket.on("checkmate", (winner) => {
 });
 
 socket.on("waiting", () => {
-  console.log("Client state: WAITING");
   if (waitingElement) waitingElement.classList.remove("hidden");
   if (boardElement) boardElement.classList.add("hidden");
   const userInfoElement = document.getElementById("user-info");
@@ -138,7 +134,6 @@ socket.on("waiting", () => {
 });
 
 socket.on("startGame", () => {
-  console.log("Client state: START_GAME");
   if (waitingElement) waitingElement.classList.add("hidden");
   if (boardElement) boardElement.classList.remove("hidden");
   const userInfoElement = document.getElementById("user-info");
@@ -147,7 +142,6 @@ socket.on("startGame", () => {
 });
 
 socket.on("playersInfo", (players) => {
-  console.log("Updating players info:", players);
   const whiteP = document.getElementById("whitePlayer");
   const blackP = document.getElementById("blackPlayer");
 
@@ -160,8 +154,12 @@ socket.on("playersInfo", (players) => {
   }
 });
 
-socket.on("connect", () => console.log("Socket connected to server"));
+socket.on("connect", () => {}); // Connected
 socket.on("connect_error", (err) =>
   console.error("Socket connection error:", err)
 );
 socket.on("error", (err) => console.error("Socket error:", err));
+
+socket.on("userId", (userId) => {
+  console.log("UserID:", userId);
+});
