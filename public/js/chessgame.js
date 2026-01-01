@@ -159,7 +159,3 @@ socket.on("connect_error", (err) =>
   console.error("Socket connection error:", err)
 );
 socket.on("error", (err) => console.error("Socket error:", err));
-
-socket.on("userId", (userId) => {
-  console.log("UserID:", userId);
-});

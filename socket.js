@@ -184,9 +184,6 @@ module.exports = (io, session) => {
       }
     });
 
-    // Emit userId to the client so they know who they are
-    socket.emit("userId", userId);
-
     // player disconnection
     socket.on("disconnect", () => {
       const userId = socket.handshake.session.passport?.user;
